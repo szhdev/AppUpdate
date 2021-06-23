@@ -37,7 +37,7 @@ import java.util.Map;
 
 public class JavaActivity extends AppCompatActivity {
     private static final String TAG = JavaActivity.class.getSimpleName();
-    private String mUpdateUrl = "https://raw.githubusercontent.com/WVector/AppUpdateDemo/master/json/json.txt";
+    private String mUpdateUrl = "http://rest.apizza.net/mock/ce89c041a1eaa59410f253720f952c0c/update";
     private String mUpdateUrl1 = "https://raw.githubusercontent.com/WVector/AppUpdateDemo/master/json/json1.txt";
     private boolean isShowDownloadProgress;
     private String mApkFileUrl = "https://raw.githubusercontent.com/WVector/AppUpdateDemo/master/apk/sample-debug.apk";
@@ -109,7 +109,7 @@ public class JavaActivity extends AppCompatActivity {
                 //当前Activity
                 .setActivity(this)
                 //更新地址
-                .setUpdateUrl(mUpdateUrl1)
+                .setUpdateUrl(mUpdateUrl)
                 //实现httpManager接口的对象
                 .setHttpManager(new UpdateAppHttpUtil())
                 .build()
@@ -210,6 +210,7 @@ public class JavaActivity extends AppCompatActivity {
                                     .setTargetSize(jsonObject.optString("target_size"))
                                     //是否强制更新，可以不设置
                                     .setConstraint(true)
+                                    .setShowDialog(true)
                                     //设置md5，可以不设置
                                     .setNewMd5(jsonObject.optString("new_md5"));
                         } catch (JSONException e) {

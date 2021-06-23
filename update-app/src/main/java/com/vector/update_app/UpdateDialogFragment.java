@@ -368,7 +368,17 @@ public class UpdateDialogFragment extends DialogFragment implements View.OnClick
      */
     private void downloadApp() {
         //使用ApplicationContext延长他的生命周期
-        DownloadService.bindService(getActivity().getApplicationContext(), conn);
+        DownloadService.bindService(getActivity().getApplicationContext(), new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                startDownloadApp((DownloadService.DownloadBinder) service);
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+
+            }
+        });
     }
 
     /**
@@ -418,8 +428,16 @@ public class UpdateDialogFragment extends DialogFragment implements View.OnClick
 
                 @Override
                 public void onError(String msg) {
-                    if (!UpdateDialogFragment.this.isRemoving()) {
-                        dismissAllowingStateLoss();
+                    if ( mUpdateApp.isConstraint()) {
+                        showErrorBtn();
+                    }else {
+                        if(mUpdateApp.isShowDialog()){
+                            showErrorBtn();
+                        }else {
+                            if (!UpdateDialogFragment.this.isRemoving()) {
+                                dismissAllowingStateLoss();
+                            }
+                        }
                     }
                 }
 
@@ -455,6 +473,20 @@ public class UpdateDialogFragment extends DialogFragment implements View.OnClick
             }
         });
     }
+
+    private void showErrorBtn() {
+        mNumberProgressBar.setProgress(0);
+        mNumberProgressBar.setVisibility(View.GONE);
+        mUpdateOkButton.setText("重新下载");
+        mUpdateOkButton.setVisibility(View.VISIBLE);
+        mUpdateOkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                installApp();
+            }
+        });
+    }
+
 
 
 //    @Override

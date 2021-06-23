@@ -1,18 +1,16 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.1.4'
-    ext.novoda_version = '0.4.0'
+    ext.kotlin_version = '1.4.31'
+    ext.novoda_version = '0.8.0'
     repositories {
+        google()
+        mavenCentral()
         jcenter()
-
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
+        maven {url 'https://dl.google.com/dl/android/maven2/'}
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.android.tools.build:gradle:3.5.3'
         classpath "com.novoda:bintray-release:$novoda_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // NOTE: Do not place your application dependencies here; they belong
@@ -21,15 +19,13 @@ buildscript {
 }
 allprojects {
     repositories {
+        google()
         jcenter()
         mavenCentral()
 
 //        maven{url 'https://dl.bintray.com/qianwen/maven/'}
         maven { url "https://www.jitpack.io" }
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
+        maven {url 'https://dl.google.com/dl/android/maven2/'}
     }
     tasks.withType(Javadoc) {
         options {
