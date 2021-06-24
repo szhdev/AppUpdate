@@ -35,7 +35,7 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:"+rootProject.kotlin_version
 
 //    api 'com.qianwen:update-app:'+rootProject.ext.update_app_version
-    compile project(':update-app')
+    api project(':update-app')
 }
 //添加
 publish {
