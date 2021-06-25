@@ -50,7 +50,7 @@
 
 ```gradle
 dependencies {
-    compile 'com.qianwen:update-app:3.5.2'
+    implementation 'com.github.szhdev.AppUpdate:update-app:1.0.0'
 }
 ```
 
@@ -61,7 +61,7 @@ dependencies {
 
 ```gradle
 dependencies {
-    compile 'com.qianwen:update-app-kotlin:1.2.3'
+    implementation 'com.github.szhdev.AppUpdate:update-app-kotlin:1.0.0'
 }
 ```
 
@@ -102,7 +102,9 @@ dependencies {
 ## 更新日志
 
 kotlin版本是依赖java版本的，所以java版本的问题kotlin自然修复
-
+1.0.0
+        
+	1.setShowDialog(true) //添加升级错误的时候是否继续显示dialog（自定义接口协议下设置）
 
 v3.5.2
 
