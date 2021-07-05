@@ -106,6 +106,7 @@ kotlin版本是依赖java版本的，所以java版本的问题kotlin自然修复
 1.0.0
         
 	1.setShowDialog(true) //添加升级错误的时候是否继续显示dialog（自定义接口协议下设置）
+	                        强制升级默认会继续显示dialog
 
 v3.5.2
 
