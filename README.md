@@ -50,7 +50,7 @@
 
 ```gradle
 dependencies {
-    implementation 'com.github.szhdev.AppUpdate:update-app:1.0.0'
+    implementation 'com.github.szhdev.AppUpdate:update-app:1.0.1'
 }
 ```
 
@@ -61,7 +61,7 @@ dependencies {
 
 ```gradle
 dependencies {
-    implementation 'com.github.szhdev.AppUpdate:update-app-kotlin:1.0.0'
+    implementation 'com.github.szhdev.AppUpdate:update-app-kotlin:1.0.1'
 }
 ```
 
@@ -102,7 +102,12 @@ dependencies {
 ## 更新日志
 
 kotlin版本是依赖java版本的，所以java版本的问题kotlin自然修复
-1.0.1   1. setStoragePermission(false) //增加是否需要存储权限 配合 setTargetPath(path) 使用
+
+
+ 
+1.0.1
+
+	1. setStoragePermission(false) //增加是否需要存储权限 配合 setTargetPath(path) 使用。
 
 
 v3.5.2
