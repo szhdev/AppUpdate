@@ -33,8 +33,8 @@ public class UpdateAppBean implements Serializable {
     private String target_size;
     //是否强制更新
     private boolean constraint;
-    //下载出错是否继续显示dialog
-    private boolean isShowDialog;
+    //是否请求读写权限
+    private boolean isPermission = true;
     //md5
     private String new_md5;
     //是否增量 暂时不用
@@ -60,12 +60,12 @@ public class UpdateAppBean implements Serializable {
         mHideDialog = hideDialog;
     }
 
-    public boolean isShowDialog() {
-        return isShowDialog;
+    public boolean isPermission() {
+        return isPermission;
     }
 
-    public UpdateAppBean setShowDialog(boolean showDialog) {
-        isShowDialog = showDialog;
+    public UpdateAppBean setStoragePermission(boolean permission) {
+        isPermission = permission;
         return this;
     }
 

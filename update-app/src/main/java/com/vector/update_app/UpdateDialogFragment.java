@@ -55,20 +55,7 @@ public class UpdateDialogFragment extends DialogFragment implements View.OnClick
     private NumberProgressBar mNumberProgressBar;
     private ImageView mIvClose;
     private TextView mTitleTextView;
-    /**
-     * 回调
-     */
-    private ServiceConnection conn = new ServiceConnection() {
 
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            startDownloadApp((DownloadService.DownloadBinder) service);
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-        }
-    };
     private LinearLayout mLlClose;
     //默认色
     private int mDefaultColor = 0xffe94339;
@@ -285,21 +272,23 @@ public class UpdateDialogFragment extends DialogFragment implements View.OnClick
     public void onClick(View view) {
         int i = view.getId();
         if (i == R.id.btn_ok) {
-
-            //权限判断是否有访问外部存储空间权限
-            int flag = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
-            if (flag != PackageManager.PERMISSION_GRANTED) {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                    // 用户拒绝过这个权限了，应该提示用户，为什么需要这个权限。
-                    Toast.makeText(getActivity(), TIPS, Toast.LENGTH_LONG).show();
-                } else {
-                    // 申请授权。
-                    requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                }
-
-            } else {
+            if(!mUpdateApp.isPermission()){
                 installApp();
+            }else {
+                //权限判断是否有访问外部存储空间权限
+                int flag = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                if (flag != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                        // 用户拒绝过这个权限了，应该提示用户，为什么需要这个权限。
+                        Toast.makeText(getActivity(), TIPS, Toast.LENGTH_LONG).show();
+                    } else {
+                        // 申请授权。
+                        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                    }
 
+                } else {
+                    installApp();
+                }
             }
 
         } else if (i == R.id.iv_close) {
@@ -354,9 +343,10 @@ public class UpdateDialogFragment extends DialogFragment implements View.OnClick
                 //升级
                 installApp();
             } else {
-                //提示，并且关闭
                 Toast.makeText(getActivity(), TIPS, Toast.LENGTH_LONG).show();
-                dismiss();
+                if (!mUpdateApp.isConstraint()) {
+                    dismiss();
+                }
 
             }
         }
@@ -431,12 +421,8 @@ public class UpdateDialogFragment extends DialogFragment implements View.OnClick
                     if ( mUpdateApp.isConstraint()) {
                         showErrorBtn();
                     }else {
-                        if(mUpdateApp.isShowDialog()){
-                            showErrorBtn();
-                        }else {
-                            if (!UpdateDialogFragment.this.isRemoving()) {
-                                dismissAllowingStateLoss();
-                            }
+                        if (!UpdateDialogFragment.this.isRemoving()) {
+                            dismissAllowingStateLoss();
                         }
                     }
                 }

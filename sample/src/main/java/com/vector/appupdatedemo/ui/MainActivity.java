@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         im.setImageBitmap(AppUpdateUtils.drawableToBitmap(AppUpdateUtils.getAppIcon(this)));
 
-        getPermission();
+//        getPermission();
 
     }
 

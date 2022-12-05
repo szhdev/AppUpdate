@@ -131,6 +131,7 @@ public class JavaActivity extends AppCompatActivity {
         params.put("key1", "value2");
         params.put("key2", "value3");
 
+        final String path = getExternalFilesDir("").getAbsolutePath();
 
         new UpdateAppManager
                 .Builder()
@@ -163,7 +164,7 @@ public class JavaActivity extends AppCompatActivity {
                 //为按钮，进度条设置颜色。
                 .setThemeColor(0xffffac5d)
                 //设置apk下砸路径，默认是在下载到sd卡下/Download/1.0.0/test.apk
-//                .setTargetPath(path)
+                .setTargetPath(path)
                 //设置appKey，默认从AndroidManifest.xml获取，如果，使用自定义参数，则此项无效
 //                .setAppKey("ab55ce55Ac4bcP408cPb8c1Aaeac179c5f6f")
                 .setUpdateDialogFragmentListener(new IUpdateDialogFragmentListener() {
@@ -210,7 +211,8 @@ public class JavaActivity extends AppCompatActivity {
                                     .setTargetSize(jsonObject.optString("target_size"))
                                     //是否强制更新，可以不设置
                                     .setConstraint(true)
-                                    .setShowDialog(true)
+                                    //是否请求读写权限 与 setTargetPath()配合使用
+                                    .setStoragePermission(false)
                                     //设置md5，可以不设置
                                     .setNewMd5(jsonObject.optString("new_md5"));
                         } catch (JSONException e) {
